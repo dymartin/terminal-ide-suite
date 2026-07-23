@@ -24,10 +24,8 @@ if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
-log "brew CLI tool suite"
-brew install \
-  zellij helix yazi lazygit starship fzf ripgrep fd zoxide \
-  just watchexec gh bat eza git-delta
+log "brew packages (from Brewfile)"
+brew bundle --file="$ROOT/Brewfile"
 
 # --- Phase D: runtimes -----------------------------------------------------
 if ! have mise; then
@@ -52,7 +50,7 @@ if ! have cao;      then log "install CAO: github.com/awslabs/cli-agent-orchestr
 # --- Stow all config packages ---------------------------------------------
 log "stowing configs"
 cd "$ROOT"
-for pkg in fish zellij helix yazi lazygit starship git bin cao; do
+for pkg in fish zellij helix yazi lazygit starship git bin cao topgrade; do
   stow -v --restow --target "$HOME" "$pkg"
 done
 

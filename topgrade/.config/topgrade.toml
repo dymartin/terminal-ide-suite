@@ -1,0 +1,8 @@
+# topgrade config — `update` runs this to upgrade the whole stack in one pass.
+# topgrade auto-detects apt, Homebrew, mise, npm, cargo, rustup, etc.
+# Docs: https://github.com/topgrade-rs/topgrade
+
+[misc]
+assume_yes = true      # don't prompt before each step
+cleanup = true         # run each manager's cleanup (e.g. brew cleanup)
+skip_notify = true     # no desktop notifications inside the terminal
