@@ -64,8 +64,17 @@ agents             # open the CAO AI Lab
 
 Inside Zellij: `Alt+1` IDE · `Alt+2` Git · `Alt+3` Run/Debug · `Alt+4` AI Lab.
 
+## Updating
+
+- **`update`** runs [topgrade](https://github.com/topgrade-rs/topgrade), upgrading the
+  whole stack in one pass — Homebrew, mise, apt, and any package managers it detects.
+- Homebrew packages are declared in the **`Brewfile`**: `brew bundle` installs the set,
+  `brew bundle cleanup` removes anything not listed.
+- **Renovate** (`renovate.json`) opens pull requests to bump pinned versions
+  (e.g. in `mise.toml`) automatically once the repo is hosted on GitHub.
+
 ## Layout
 
 Stow packages (each mirrors `$HOME`):
-`fish zellij helix yazi lazygit starship git bin cao`. Apply individually with
+`fish zellij helix yazi lazygit starship git bin cao topgrade`. Apply individually with
 `stow <pkg>` from `~/terminal-ide-suite`.
