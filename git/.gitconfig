@@ -1,0 +1,30 @@
+[init]
+    defaultBranch = main
+[core]
+    editor = hx
+    autocrlf = input
+    pager = delta
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true
+    dark = true
+    line-numbers = true
+[merge]
+    conflictStyle = zdiff3
+[diff]
+    colorMoved = default
+[pull]
+    rebase = true
+[push]
+    autoSetupRemote = true
+[alias]
+    st = status -sb
+    co = checkout
+    br = branch
+    lg = log --oneline --graph --decorate -20
+    wt = worktree
+    last = log -1 HEAD --stat
+# Set your identity locally (not committed to the terminal-ide-suite repo):
+#   git config --global user.name  "Your Name"
+#   git config --global user.email "you@example.com"
