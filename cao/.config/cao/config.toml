@@ -1,0 +1,25 @@
+# CAO (cli-agent-orchestrator) global config — placeholder.
+# Confirm the real schema against: github.com/awslabs/cli-agent-orchestrator
+#
+# Intent captured here so the AI Lab is reproducible:
+#   - Register the worker CLIs available on this machine.
+#   - Point local-model workers at the Ollama endpoint.
+#   - Default to git-worktree isolation for coder workers.
+
+[workers.claude]
+cmd = "claude"
+role = "coder"          # high-reasoning: architecture, refactor, debug
+
+[workers.opencode]
+cmd = "opencode"
+role = "coder"          # alternative agent; can drive local models
+
+[workers.local]
+# OpenCode/other worker pointed at Ollama's OpenAI-compatible endpoint.
+base_url = "http://localhost:11434/v1"
+model = "qwen2.5-coder:7b"
+role = "worker"         # cheap/bulk tasks
+
+[supervisor]
+model = "claude"        # orchestrator that plans + delegates
+isolation = "git-worktree"
