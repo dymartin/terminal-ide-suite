@@ -1,11 +1,16 @@
 # terminal-ide-suite — Terminal-Native IDE (WSL2 + Zellij)
 
-A terminal-native development environment that approximates a GUI IDE, driven from the
-keyboard with **Zellij** as the workspace shell. `work <project>` launches a 4-screen
-Zellij session (IDE / Git / Run-Debug / AI Lab) with the right environment pre-loaded.
+My custom multi-screen command line IDE. Code editor designed for terminal-first workflows. Made from open source components.
 
-Everything is plain, self-contained config managed with GNU stow — adopt the whole setup
-or cherry-pick individual pieces.
+`work <project>` launches a 4-screen Zellij session with the right environment pre-loaded.
+
+## Features
+- **Per-project startup:** A single command opens a project in a saved workspace layout. Tools, tasks, and configuration files are loaded in place.
+- **Four-pane workspace:** The CLI is divided into areas for editing code, reviewing changes, running and testing the app, and orchestrating AI assistants.
+- **AI orchestration:** Multiple assistants in the same terminal for individual tasks, larger work can be delegated to multiple agents.
+- **Updates:** One command updates the installed tools, and dependency version bumps can be surfaced as pull requests.
+
+The environment is reproducable and be reinstalled on another machine.
 
 ## Stack
 
@@ -14,10 +19,10 @@ or cherry-pick individual pieces.
 | Host terminal    | Windows Terminal |
 | Linux            | WSL2 (Ubuntu) |
 | Workspace shell  | Zellij |
-| Editor           | Helix (`hx`) |
-| Shell / prompt   | fish + Starship |
+| Text Editor           | Helix (`hx`) |
+| Shell   | fish + Starship |
 | File explorer    | Yazi |
-| Git UI           | Lazygit |
+| Git TUI           | Lazygit |
 | Search / find    | ripgrep (`rg`), fd, fzf |
 | Navigation       | zoxide |
 | Runtimes / env   | mise, direnv |
@@ -29,7 +34,7 @@ or cherry-pick individual pieces.
 
 ## Install
 
-### 0. Windows host (do this once, manually — needs admin + reboot)
+### 0. Windows host
 
 In an **elevated PowerShell**:
 
@@ -38,9 +43,8 @@ winget install Microsoft.WindowsTerminal   # if not already installed
 wsl --install -d Ubuntu                     # reboot when prompted
 ```
 
-After reboot, launch Ubuntu and create your Linux user. For the file-tree and prompt
-glyphs to render, install a [Nerd Font](https://www.nerdfonts.com) and set it as the
-font for the Ubuntu profile in Windows Terminal settings.
+After reboot, launch Ubuntu and create Linux user. For the file-tree and prompt
+glyphs to render, install a [Nerd Font](https://www.nerdfonts.com) and set it as the font for the Ubuntu profile in Windows Terminal settings.
 
 ### 1. Inside WSL
 
@@ -62,7 +66,7 @@ dev-init           # scaffold the current dir into a managed project
 agents             # open the CAO AI Lab
 ```
 
-Inside Zellij: `Alt+1` IDE · `Alt+2` Git · `Alt+3` Run/Debug · `Alt+4` AI Lab.
+Inside Terminal: `Alt+1` IDE · `Alt+2` Git · `Alt+3` Run/Debug · `Alt+4` AI Lab.
 
 ## Updating
 
