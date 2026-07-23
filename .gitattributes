@@ -1,0 +1,7 @@
+# Force LF everywhere so scripts run in WSL/Linux regardless of Windows checkout.
+* text=auto eol=lf
+*.sh   text eol=lf
+*.fish text eol=lf
+*.kdl  text eol=lf
+*.toml text eol=lf
+*.yml  text eol=lf
