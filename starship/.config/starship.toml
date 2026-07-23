@@ -1,0 +1,51 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = true
+command_timeout = 800
+
+format = """
+[](surface0)\
+$directory\
+$git_branch\
+$git_status\
+$python$nodejs$rust$golang\
+$direnv\
+$cmd_duration\
+$line_break\
+$character"""
+
+[directory]
+style = "bold blue"
+truncation_length = 3
+truncate_to_repo = true
+
+[git_branch]
+symbol = " "
+style = "bold mauve"
+
+[git_status]
+style = "bold red"
+
+[direnv]
+disabled = false
+symbol = "󱄅 "
+format = "[$symbol$loaded]($style) "
+style = "bold green"
+
+[cmd_duration]
+min_time = 2000
+format = "[ $duration]($style) "
+style = "yellow"
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+
+[python]
+symbol = " "
+[nodejs]
+symbol = " "
+[rust]
+symbol = " "
+[golang]
+symbol = " "
