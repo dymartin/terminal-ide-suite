@@ -4,7 +4,8 @@ A terminal-native development environment that approximates a GUI IDE, driven fr
 keyboard with **Zellij** as the workspace shell. `work <project>` launches a 4-screen
 Zellij session (IDE / Git / Run-Debug / AI Lab) with the right environment pre-loaded.
 
-See the full design in the implementation plan. This repo is the concrete artifact.
+Everything is plain, self-contained config managed with GNU stow — adopt the whole setup
+or cherry-pick individual pieces.
 
 ## Stack
 
@@ -33,19 +34,19 @@ See the full design in the implementation plan. This repo is the concrete artifa
 In an **elevated PowerShell**:
 
 ```powershell
-winget install Microsoft.WindowsTerminal          # if not already installed
-winget install --id DEVCOM.JetBrainsMonoNerdFont  # icons for Yazi/Starship/Helix
-wsl --install -d Ubuntu                            # reboot when prompted
+winget install Microsoft.WindowsTerminal   # if not already installed
+wsl --install -d Ubuntu                     # reboot when prompted
 ```
 
-After reboot, launch Ubuntu, create your Linux user, then set the Windows Terminal
-Ubuntu profile font to "JetBrainsMono Nerd Font".
+After reboot, launch Ubuntu and create your Linux user. For the file-tree and prompt
+glyphs to render, install a [Nerd Font](https://www.nerdfonts.com) and set it as the
+font for the Ubuntu profile in Windows Terminal settings.
 
 ### 1. Inside WSL
 
 ```bash
 sudo apt update && sudo apt install -y git
-git clone <your-fork-url> ~/terminal-ide-suite   # or copy this folder there
+git clone https://github.com/dymartin/terminal-ide-suite.git ~/terminal-ide-suite
 cd ~/terminal-ide-suite
 ./bootstrap.sh                            # installs everything + stows configs
 ```
