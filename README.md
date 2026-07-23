@@ -10,7 +10,7 @@ My custom multi-screen command line IDE. Code editor designed for terminal-first
 - **AI orchestration:** Multiple assistants in the same terminal for individual tasks, larger work can be delegated to multiple agents.
 - **Updates:** One command updates the installed tools, and dependency version bumps can be surfaced as pull requests.
 
-The environment is reproducable and be reinstalled on another machine.
+The environment is reproducable and can be reinstalled on another machine.
 
 ## Stack
 
