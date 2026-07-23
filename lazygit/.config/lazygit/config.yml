@@ -1,0 +1,18 @@
+gui:
+  nerdFontsVersion: "3"
+  showFileTree: true
+  showRandomTip: false
+  scrollHeight: 4
+  theme:
+    activeBorderColor:
+      - "#89b4fa"
+      - bold
+    inactiveBorderColor:
+      - "#585b70"
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never
+  parseEmoji: true
+os:
+  editPreset: "helix"
