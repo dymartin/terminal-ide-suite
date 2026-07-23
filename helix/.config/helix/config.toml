@@ -1,0 +1,36 @@
+theme = "catppuccin_mocha"
+
+[editor]
+line-number = "relative"
+bufferline = "multiple"
+color-modes = true
+cursorline = true
+true-color = true
+rulers = [100]
+popup-border = "all"
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+
+[editor.statusline]
+left = ["mode", "spinner", "file-name", "file-modification-indicator"]
+right = ["diagnostics", "selections", "position", "file-encoding", "file-type"]
+
+[editor.lsp]
+display-messages = true
+display-inlay-hints = true
+
+[editor.indent-guides]
+render = true
+
+[keys.normal]
+# Space-w to write, space-q to quit — muscle memory for the IDE feel.
+space.w = ":write"
+space.q = ":quit"
+# Open a floating file-explorer-ish picker.
+space.e = "file_picker_in_current_directory"

@@ -1,0 +1,25 @@
+# Language servers + formatters. Install the servers separately, e.g.:
+#   npm i -g typescript typescript-language-server vscode-langservers-extracted
+#   pipx install "python-lsp-server[all]" ruff   (or use ruff-lsp / pyright)
+#   rustup component add rust-analyzer
+#   go install golang.org/x/tools/gopls@latest
+# `hx --health <lang>` shows what's detected.
+
+[[language]]
+name = "python"
+auto-format = true
+formatter = { command = "ruff", args = ["format", "-"] }
+language-servers = ["ruff", "pylsp"]
+
+[[language]]
+name = "typescript"
+auto-format = true
+language-servers = ["typescript-language-server"]
+
+[[language]]
+name = "rust"
+auto-format = true
+
+[[language]]
+name = "go"
+auto-format = true
