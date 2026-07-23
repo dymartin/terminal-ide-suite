@@ -1,0 +1,7 @@
+// Standalone Git screen. Used by `gitui`.
+layout {
+    tab name="Git" focus=true {
+        pane command="lazygit"
+        pane size="22%" name="git-shell"
+    }
+}

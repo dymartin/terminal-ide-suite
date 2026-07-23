@@ -1,0 +1,44 @@
+// Full 4-screen project workspace. `work <project>` opens this.
+// Tabs = screens:  Alt+1 IDE · Alt+2 Git · Alt+3 Run · Alt+4 AI Lab
+layout {
+    // ── Screen 1: IDE ──────────────────────────────────────────────
+    tab name="IDE" focus=true {
+        pane split_direction="vertical" {
+            pane size="22%" command="yazi"          // left: file explorer
+            pane size="48%" {                        // centre: editor
+                pane command="hx" {
+                    args "."
+                }
+            }
+            pane size="30%" {                        // right: AI assistants, stacked
+                pane stacked=true {
+                    pane name="Claude" command="claude"
+                    pane name="OpenCode" command="opencode"
+                }
+            }
+        }
+        pane size="18%" name="shell"                 // bottom: quick commands/tests
+    }
+
+    // ── Screen 2: Git ──────────────────────────────────────────────
+    tab name="Git" {
+        pane command="lazygit"
+        pane size="22%" name="git-shell"             // reflog / worktree / bisect
+    }
+
+    // ── Screen 3: Run / Debug ──────────────────────────────────────
+    tab name="Run" {
+        pane split_direction="horizontal" {
+            pane name="app"                          // e.g. `just dev`
+            pane size="45%" split_direction="vertical" {
+                pane name="logs"
+                pane name="tests"                    // e.g. `just test-watch`
+            }
+        }
+    }
+
+    // ── Screen 4: AI Lab ───────────────────────────────────────────
+    tab name="AILab" {
+        pane name="cao" command="cao"                // supervisor/worker orchestration
+    }
+}

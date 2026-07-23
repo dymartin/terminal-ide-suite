@@ -1,0 +1,22 @@
+// Zellij config. Merges with built-in defaults (no clear-defaults).
+theme "catppuccin-mocha"
+default_layout "compact"     // clean single-line status; project layout overrides on `work`
+pane_frames false            // more screen real estate; borders via active-pane highlight
+copy_on_select true
+scrollback_editor "hx"
+mouse_mode true
+
+// Quick screen switching that works from normal mode (not just tab mode).
+keybinds {
+    shared_except "locked" {
+        bind "Alt 1" { GoToTab 1; }
+        bind "Alt 2" { GoToTab 2; }
+        bind "Alt 3" { GoToTab 3; }
+        bind "Alt 4" { GoToTab 4; }
+        bind "Alt h" { MoveFocusOrTab "Left"; }
+        bind "Alt l" { MoveFocusOrTab "Right"; }
+        bind "Alt j" { MoveFocus "Down"; }
+        bind "Alt k" { MoveFocus "Up"; }
+        bind "Alt f" { ToggleFocusFullscreen; }   // maximise editor / AI pane
+    }
+}

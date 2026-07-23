@@ -1,0 +1,12 @@
+// Standalone Run/Debug screen. Used by `run`.
+layout {
+    tab name="Run" focus=true {
+        pane split_direction="horizontal" {
+            pane name="app"
+            pane size="45%" split_direction="vertical" {
+                pane name="logs"
+                pane name="tests"
+            }
+        }
+    }
+}

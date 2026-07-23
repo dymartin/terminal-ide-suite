@@ -1,0 +1,7 @@
+// Standalone AI Lab screen. Used by `agents`.
+// CAO drives its own tmux workers underneath; this pane is just the supervisor UI.
+layout {
+    tab name="AILab" focus=true {
+        pane command="cao"
+    }
+}

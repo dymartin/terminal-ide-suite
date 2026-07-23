@@ -1,0 +1,20 @@
+// Standalone IDE screen (single tab). Used by `ide`.
+layout {
+    tab name="IDE" focus=true {
+        pane split_direction="vertical" {
+            pane size="22%" command="yazi"
+            pane size="48%" {
+                pane command="hx" {
+                    args "."
+                }
+            }
+            pane size="30%" {
+                pane stacked=true {
+                    pane name="Claude" command="claude"
+                    pane name="OpenCode" command="opencode"
+                }
+            }
+        }
+        pane size="18%" name="shell"
+    }
+}
