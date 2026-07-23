@@ -1,0 +1,10 @@
+# Minimal keymap overrides. Yazi ships sensible defaults; add project-open helpers.
+[[mgr.prepend_keymap]]
+on   = ["g", "h"]
+run  = "cd ~"
+desc = "Go home"
+
+[[mgr.prepend_keymap]]
+on   = "<C-o>"
+run  = 'shell "hx \"$0\"" --block'
+desc = "Open selection in Helix"
