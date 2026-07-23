@@ -1,0 +1,136 @@
+#!/usr/bin/env bash
+# Scaffold the current directory into a managed project:
+#   dev-init [--template node-web|python-cli|rust] [--force]
+# Writes .envrc, mise.toml, justfile, .zellij/project.kdl, .cao/team.md and
+# registers the project for the `proj` picker. Idempotent unless --force.
+set -euo pipefail
+
+TEMPLATE=""
+FORCE=0
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --template) TEMPLATE="${2:-}"; shift 2 ;;
+    --force)    FORCE=1; shift ;;
+    *) echo "usage: dev-init [--template NAME] [--force]"; exit 1 ;;
+  esac
+done
+
+DIR="$PWD"
+NAME="$(basename "$DIR")"
+TPL_DIR="$HOME/terminal-ide-suite/templates"
+
+write() {  # write <path> <<<content  — skips existing unless --force
+  local path="$1"
+  if [ -e "$path" ] && [ "$FORCE" -ne 1 ]; then
+    echo "  skip  $path (exists)"; cat >/dev/null; return
+  fi
+  mkdir -p "$(dirname "$path")"
+  cat > "$path"
+  echo "  write $path"
+}
+
+echo "==> scaffolding '$NAME'"
+
+# If a template is given and exists, copy its files first (non-destructive).
+if [ -n "$TEMPLATE" ] && [ -d "$TPL_DIR/$TEMPLATE" ]; then
+  echo "  template: $TEMPLATE"
+  cp -rn "$TPL_DIR/$TEMPLATE"/. "$DIR"/ 2>/dev/null || true
+fi
+
+write "$DIR/.envrc" <<'EOF'
+# Loaded automatically by direnv on cd. `direnv allow` once to trust it.
+use mise
+export PATH="$PWD/bin:$PATH"
+# Load secrets from an untracked file if present (never commit real keys).
+[ -f .env.local ] && dotenv .env.local
+EOF
+
+write "$DIR/mise.toml" <<'EOF'
+[tools]
+# Pin runtimes here, e.g.:
+# node = "lts"
+# python = "3.12"
+
+[env]
+# Project-scoped env vars.
+EOF
+
+write "$DIR/justfile" <<'EOF'
+# Standard recipes the Zellij Run/Debug tab and the testing agent expect.
+default:
+    @just --list
+
+dev:
+    @echo "define your dev/server command"
+
+run: dev
+
+test:
+    @echo "define your test command"
+
+# Re-run tests on file change (used by the Run tab's `tests` pane).
+test-watch:
+    watchexec -r -e py,ts,tsx,js,rs,go -- just test
+
+lint:
+    @echo "define lint"
+
+fmt:
+    @echo "define fmt"
+
+build:
+    @echo "define build"
+EOF
+
+write "$DIR/.zellij/project.kdl" <<'EOF'
+// Per-project layout override. `work` uses this instead of the global layout.
+// Start from the global 'project' layout and customise (e.g. add a db/docker pane).
+layout {
+    tab name="IDE" focus=true {
+        pane split_direction="vertical" {
+            pane size="22%" command="yazi"
+            pane size="48%" { pane command="hx" { args "." } }
+            pane size="30%" {
+                pane stacked=true {
+                    pane name="Claude" command="claude"
+                    pane name="OpenCode" command="opencode"
+                }
+            }
+        }
+        pane size="18%" name="shell"
+    }
+    tab name="Git"   { pane command="lazygit"; pane size="22%" name="git-shell" }
+    tab name="Run"   {
+        pane split_direction="horizontal" {
+            pane name="app"
+            pane size="45%" split_direction="vertical" { pane name="logs"; pane name="tests" }
+        }
+    }
+    tab name="AILab" { pane command="cao" }
+}
+EOF
+
+write "$DIR/.cao/team.md" <<EOF
+# AI team for $NAME
+
+Describe the agents CAO should coordinate on this repo. Roles:
+
+- supervisor  — decompose the task, assign work, integrate results.
+- planner     — break work into steps (local model ok: llama3.2).
+- researcher  — investigate the codebase / docs.
+- coder       — implement (Claude Code on a git worktree).
+- reviewer    — review diffs before merge.
+- tester      — run \`just test\` and report failures.
+
+## Conventions
+- Coders work on isolated git worktrees; never edit the same file in parallel.
+- All changes must pass \`just test\` and \`just lint\` before review.
+EOF
+
+# Trust direnv + register for the `proj` picker.
+command -v direnv >/dev/null && direnv allow "$DIR" || true
+command -v zoxide >/dev/null && zoxide add "$DIR" || true
+mkdir -p "$HOME/.config/dev"
+grep -qxF "$DIR" "$HOME/.config/dev/projects" 2>/dev/null || echo "$DIR" >> "$HOME/.config/dev/projects"
+
+echo "==> done. Launch it with:  work $NAME"
