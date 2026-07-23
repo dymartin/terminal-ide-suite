@@ -1,0 +1,22 @@
+default:
+    @just --list
+
+dev:
+    cargo run
+
+run: dev
+
+test:
+    cargo test
+
+test-watch:
+    watchexec -r -e rs -- cargo test
+
+lint:
+    cargo clippy -- -D warnings
+
+fmt:
+    cargo fmt
+
+build:
+    cargo build --release

@@ -1,0 +1,22 @@
+default:
+    @just --list
+
+dev:
+    npm run dev
+
+run: dev
+
+test:
+    npm test
+
+test-watch:
+    watchexec -r -e ts,tsx,js,jsx -- npm test
+
+lint:
+    npm run lint
+
+fmt:
+    npx prettier --write .
+
+build:
+    npm run build
